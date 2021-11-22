@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/plantilla/template :: head">
+
+<meta charset="utf-8">
+</head>
+
+
+<body>
+
+	 <div class="d-flex" id="content-wrapper">
+		
+	 <div th:replace="plantilla/template :: sidebar">
+	 
+	 </div>	
+	 <div id="page-content-wrapper" class="w-100 bg-light-blue">
+
+	 <nav th:replace="plantilla/template :: cabecera-header">
+	 	
+	 </nav>
+	 
+	 <div id="content" class="container-fluid p-5">
+        <section class="py-3">
+          <!-- Highlights -->
+        <div class="row">
+          			<div class="container">
+          			<div class="alert alert-danger alert-dismissible fade show"
+						role="alert" th:if="${error != null}">
+						<span th:text="${error}"></span>			
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+          				<div>
+							<h1>Lista de Clientes&nbsp;&nbsp;<a type="submit" class="btn btn-success" value="Agregar" th:href="@{/modulos/administracion/createcliente}"><i class="fas fa-user-plus"></i>&nbsp;Agregar</a></h1>
+						</div>	
+		
+					</div>
+					<div class="container">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">DNI</th>
+										<th scope="col">NOMBRES</th>
+										<th scope="col">APELLIDOS</th>
+										<th scope="col">TELEFONO</th>
+										<th scope="col">DIRECCIÓN</th>
+										<th scope="col">ACCIONES</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="cli:${clientes}">
+										<th scope="row" th:text="${cli.idcliente}"></th>
+										<td th:text="${cli.dnicliente}"></td>
+										<td th:text="${cli.nombres}"></td>
+										<td th:text="${cli.apellidos}"></td>
+										<td th:text="${cli.telefono}"></td>
+										<td th:text="${cli.direccion}"></td>
+										<td><a type="submit" class="btn btn-warning" th:href="@{/modulos/administracion/editcliente/} + ${cli.idcliente}"><i class="fas fa-user-edit"></i>&nbsp;Editar</a></td>
+									</tr>
+								</tbody>
+							</table>
+					</div>
+		 </div>
+		 
+          
+          			<!-- Fin highlights -->
+
+					<!-- Modal -->
+					
+				</section>
+      </div>
+	 </div>
+	 
+	 
+	
+	
+	 	
+		<footer th:replace="/plantilla/template :: footer">
+
+		</footer>
+		
+	<!-- Abrir / cerrar menu -->
+	  	 <script>
+		    $("#menu-toggle").click(function (e) {
+		      e.preventDefault();
+		      $("#content-wrapper").toggleClass("toggled");
+		    });
+	  	</script>
+	  	
+	</div>	  	
+</body>
+
+</html>

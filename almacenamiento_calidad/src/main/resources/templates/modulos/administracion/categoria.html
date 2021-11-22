@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/plantilla/template :: head">
+<meta charset="utf-8">
+
+</head>
+
+
+<body>
+
+	 <div class="d-flex" id="content-wrapper">
+		
+	 <div th:replace="plantilla/template :: sidebar">
+	 
+	 </div>	
+	 <div id="page-content-wrapper" class="w-100 bg-light-blue">
+
+	 <nav th:replace="plantilla/template :: cabecera-header">
+	 	
+	 </nav>
+	 
+	 <div id="content" class="container-fluid p-5">
+        <section class="py-3">
+          <!-- Highlights -->
+        <div class="row">
+          			<div class="container">
+          			<div class="alert alert-danger alert-dismissible fade show"
+						role="alert" th:if="${error != null}">
+						<span th:text="${error}"></span>			
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+          				<div>
+							<h1>Lista de Categorías&nbsp;&nbsp;<a type="submit" class="btn btn-success" value="Agregar" th:href="@{/modulos/administracion/createcategoria}"><i class="fas fa-plus-square"></i>&nbsp;Agregar</a></h1>
+						</div>	
+		
+					</div>
+					<div class="container">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">NOMBRE DE CATEGORÍA</th>
+										<th scope="col">COMENTARIO</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="cat:${categorias}">
+										<th scope="row" th:text="${cat.idcategoria}"></th>
+										<td th:text="${cat.categorianombre}"></td>
+										<td th:text="${cat.comentario_categoria}"></td>
+										<td><a type="submit" class="btn btn-warning" th:href="@{/modulos/administracion/editcategoria/} + ${cat.idcategoria}"><i class="fas fa-user-edit"></i>&nbsp;Editar</a></td>
+									</tr>
+								</tbody>
+							</table>
+					</div>
+		 </div>
+		 
+          
+          			<!-- Fin highlights -->
+
+					<!-- Modal -->
+					
+				</section>
+      </div>
+	 </div>
+	 
+	 
+	
+	
+	 	
+	 <footer th:replace="/plantilla/template :: footer">
+
+		</footer>
+		
+	<!-- Abrir / cerrar menu -->
+	  	 <script>
+		    $("#menu-toggle").click(function (e) {
+		      e.preventDefault();
+		      $("#content-wrapper").toggleClass("toggled");
+		    });
+	  	</script>
+	  	
+	</div>	  	
+</body>
+
+</html>

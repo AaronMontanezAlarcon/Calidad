@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/plantilla/template :: head">
+<meta charset="utf-8">
+</head>
+
+
+
+<body>
+
+	 <div class="d-flex" id="content-wrapper">
+		
+	 <div th:replace="plantilla/template :: sidebar">
+	 
+	 </div>	
+	 <div id="page-content-wrapper" class="w-100 bg-light-blue">
+
+	 <nav th:replace="plantilla/template :: cabecera-header">
+	 	
+	 </nav>
+	 
+	 <div id="content" class="container-fluid p-5">
+        <section class="py-3">
+          <!-- Highlights -->
+        <div class="row">
+          			<div class="container">
+          				<div>
+							<h1>Ingresos de Productos&nbsp;&nbsp;<a type="submit" class="btn btn-success" value="Agregar" th:href="@{/modulos/administracion/createentrada}"><i class="fas fa-plus-square"></i>&nbsp;Agregar</a></h1>
+						</div>	
+		
+					</div>
+					<div class="container">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">FECHA INGRESO</th>
+										<th scope="col">PRODUCTO</th>
+										<th scope="col">CANTIDAD DE INGRESO</th>
+										<th scope="col">PRECIO</th>
+										<th scope="col">ALMACÉN</th>
+										
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="ent: ${entrada}">
+										<th scope="row" th:text="${ent.id_detalle_entrada}"></th>
+										<td th:text="${ent.entrada.fecha_entrada}"></td>
+										<td th:text="${ent.producto.modelo}+' '+ ${ent.producto.marca}"></td>
+										<td th:text="${ent.cantidad}"></td>
+										<td th:text="${ent.producto.precio}"></td>
+										<td th:text="${ent.almacen.nombrealmacen}"></td>
+									</tr>
+								</tbody>
+							</table>
+					</div>
+		 </div>
+		 
+          
+          			<!-- Fin highlights -->
+
+					<!-- Modal -->
+					
+				</section>
+      </div>
+	 </div>
+	 
+	 <footer th:replace="/plantilla/template :: footer">
+
+	</footer>
+		
+	<!-- Abrir / cerrar menu -->
+	  	 <script>
+		    $("#menu-toggle").click(function (e) {
+		      e.preventDefault();
+		      $("#content-wrapper").toggleClass("toggled");
+		    });
+	  	</script>
+	  	
+	</div>	  	
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<head th:replace="/plantilla/template :: head">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container mt-4">
+	   <div class="card">
+	   
+	   	<div class="card-header">
+	   	 <center><h2 th:text="${titulo}"></h2></center>
+	   	</div>
+	   	
+	   	<div class="card-body">
+	   	
+			<form th:action="@{/modulos/administracion/savedetentrada}" th:object="${detalleentradas}" method="post" >
+				
+				<div class="row">
+					
+					
+					
+					<div class="form-group col-md-6">
+						<input th:field="*{id_detalle_entrada}" class="form-control" type="hidden" >
+					    <label for="factura" class="form-label">ID ENTRADA&nbsp;</label>
+						<select class="form-control" th:field="*{entrada.id_entrada}" required="required" >
+									<option 
+										th:value="${id_entradass}" th:text="${id_entradass}"  ></option>
+						</select>
+					</div>
+					
+					<div class="form-group col-md-6">
+						
+					    <label for="cantidad" class="form-label">CANTIDAD&nbsp;</label>
+					    <br><input type="number" pattern="^[0-9]+}" th:field="*{cantidad}" value="1" class="form-control" id="cantidad">
+					    <small class="form-text text-danger"
+									th:if="${#fields.hasErrors('cantidad')}"
+									th:errors="*{cantidad}"></small>
+					</div>
+				</div>
+			
+				<div class="row">
+					
+					<div class="col-md-6 mb-3">
+								<label>Almacén:</label>
+								
+								 <select id="id_almacen" class="form-control"	th:field="*{almacen.idalmacenes}" required="required">
+								 <option value="">Seleccione un Almacén</option>
+									<option th:each="item3 : ${listaAlmacen}"
+										th:value="${item3.idalmacenes}" th:text="${item3.nombrealmacen}"></option>
+								</select>
+					</div>
+					
+					<div class="col-md-6 mb-3">
+								<label>PRODUCTO:</label>
+								 <select id="id_producto" class="form-control"	th:field="*{producto.idproductos}" required="required">
+								 <option value="">Seleccione un Producto</option>
+									<option  th:fragment="asig" th:each="item2 : ${asig}" 
+										th:value="${item2.producto.idproductos}" th:text="${item2.producto.modelo} + ' ' + ${item2.producto.nombre} + ' ' + ${item2.producto.marca}"></option>
+								</select>
+					</div>
+					
+					
+				</div>
+				
+				
+				<div class="row mt-4 " style="text-decoration:none"> 
+					
+					<div class="">
+					    &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">Guardar Ingreso</button> 
+					</div>
+					
+					<div >
+					    &nbsp;&nbsp;<a  th:href="@{/modulos/administracion/listaringresos}" type="submit" class="btn btn-danger">Volver al Listado</a>
+					</div>	
+					
+				</div>
+				
+			</form> 
+			
+		</div>
+		
+	   </div>
+	</div>
+	
+	<footer th:replace="/plantilla/template :: footer">
+
+	</footer>
+	
+
+</body>
+
+	<script type="text/javascript" >
+	
+		$("#id_almacen").change(function(){
+			var var_dep=$("#id_almacen").val();
+			$("#id_producto").empty();
+			$("#id_producto").append("<option value=' '>Seleccione un Producto</option>");
+			$.getJSON("listaAlmacen",{"idAlmacen":var_dep},function(data){
+		
+				$.each(data,function(i,item){
+					$("#id_producto").append("<option value='"+item.producto.idproductos+"'>"+item.producto.nombre+"</option>");
+				});
+			
+			});
+			
+		});
+		
+		
+
+
+	</script>
+</html>

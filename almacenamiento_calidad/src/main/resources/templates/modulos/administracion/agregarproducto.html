@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Diego Velázquez">
+	<meta name="description" content="Tablero con Bootstrap 4 - Templune">
+	
+	<title>Almacenamiento BRON</title>
+	
+	<!-- Bootstrap Css -->
+	
+	
+	<!-- Hoja de estilos -->
+	<link href="/css/style.css" rel="stylesheet">
+	<link rel=stylesheet th:href="@{/css/bootstrap.min.css}">
+	
+	<!-- Google fonts -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Muli:400,700&display=swap"
+		rel="stylesheet">
+	
+	<!-- Ionic icons -->
+	<link
+		href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css"
+		rel="stylesheet">
+	<script src="https://kit.fontawesome.com/3b69a0c4c2.js" crossorigin="anonymous"></script>
+</head>
+
+
+<body>
+
+	<div class="container mt-4">
+	   <div class="card">
+	   
+	   	<div class="card-header">
+	   	 <center><h2 th:text="${titulo}"></h2></center>
+	   	</div>
+	   	
+	   	<div class="card-body">
+	   	
+			<form th:action="@{/modulos/administracion/saveproducto}" th:object="${productos}" method="post">
+				<div class="row">
+					
+					<div class="form-group col-md-6">
+						<input th:field="*{idproductos}" class="form-control" type="hidden" >
+					    <label for="marca" class="form-label">COLOR DEL PRODUCTO&nbsp;</label>
+					    <br><input type="text" th:field="*{marca}" class="form-control" id="marca">
+					    <small class="form-text text-danger"
+									th:if="${#fields.hasErrors('marca')}"
+									th:errors="*{marca}"></small>
+					</div>
+					
+					<div class="form-group col-md-6">
+					    <label for="nombre" class="form-label">MARCA DEL PRODUCTO&nbsp;</label>
+					    <br><input type="text" th:field="*{nombre}" class="form-control" id="nombre">
+					    <small class="form-text text-danger"
+									th:if="${#fields.hasErrors('nombre')}"
+									th:errors="*{nombre}"></small>					    
+					</div>
+				</div>
+				
+				<div class="row">
+					
+					
+					<div class="form-group col-md-6">
+					    <label for="modelo" class="form-label">NOMBRE DEL MODELO&nbsp;</label>
+					    <br><input type="text" th:field="*{modelo}" class="form-control" id="modelo">
+					    <small class="form-text text-danger"
+									th:if="${#fields.hasErrors('modelo')}"
+									th:errors="*{modelo}"></small>
+					</div>
+					
+					<div class="form-group col-md-6">
+                        <label for="modelo" class="form-label">GENERO&nbsp;</label>
+                        <select class="form-control" th:field="*{genero}" required="required">
+
+                                      <option value="FEMENINO">FEMENINO</option>
+                                      <option value="MASCULINO" selected>MASCULINO</option>
+
+                        </select>
+                        <small class="form-text text-danger"
+                                    th:if="${#fields.hasErrors('genero')}"
+                                    th:errors="{genero}"></small>
+                    </div>
+					
+				</div>
+				
+				<div class="row">
+					
+					
+					<div class="form-group col-md-6">
+					    <label for="precio" class="form-label">PRECIO&nbsp;</label>
+					    <br><input type="number" min="0" step="0.0001"  th:field="*{precio}" class="form-control" id="precio">
+					    <small class="form-text text-danger"
+									th:if="${#fields.hasErrors('precio')}"
+									th:errors="*{precio}"></small>
+					</div>
+					
+					<div class="form-group col-md-6">
+					    <label for="descripcion" class="form-label">DESCRIPCIÓN&nbsp;</label>
+					    <br><input type="text" th:field="*{descripcion}" class="form-control" id="descripcion">
+					    <small class="form-text text-danger"
+									th:if="${#fields.hasErrors('descripcion')}"
+									th:errors="*{descripcion}"></small>
+					</div>
+					
+				</div>
+				
+				<div class="row">
+					
+					<div class="col-md-6 mb-3">
+								<label>CATEGORIA:</label>
+								 <select class="form-control"	th:field="*{categoria.idcategoria}" required="required">
+									<option th:each="item : ${listaCategorias}"
+										th:value="${item.idcategoria}" th:text="${item.categorianombre}"></option>
+								</select>
+					</div>
+					
+				</div>
+	
+				<div class="row mt-4 " style="text-decoration:none"> 
+					
+					<div class="">
+					    &nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-success">Guardar Producto</button> 
+					</div>
+					
+					<div >
+					    &nbsp;&nbsp;<a  th:href="@{/modulos/administracion/producto}" type="submit" class="btn btn-danger">Volver al Menú</a>
+					</div>
+				</div>
+				 
+			</form> 
+			
+		</div>
+		
+	   </div>
+	</div>
+	
+</body>
+
+</html>
